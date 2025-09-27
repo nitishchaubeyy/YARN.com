@@ -7,7 +7,7 @@ function CreateThread() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
-    description: '', 
+    description: '',
     tags: ''
   });
   const [loading, setLoading] = useState(false);
@@ -153,6 +153,9 @@ function CreateThread() {
     }
   };
 
+  // NEW: Check if the form is valid before rendering
+  const isFormValid = !fieldErrors.title && !fieldErrors.description && validFields.title && validFields.description;
+
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
@@ -244,6 +247,7 @@ function CreateThread() {
               className="btn" 
               loading={loading}
               loadingText="Creating Thread..."
+              disabled={!isFormValid} // <-- NEW: Disable button based on validity
             >
               Create Thread
             </ButtonWithLoading>

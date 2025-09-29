@@ -44,7 +44,6 @@ function CreateThread() {
         }
         break;
       case 'tags':
-        // Tags are optional, but if provided, validate format
         if (value.trim() && value.includes(',')) {
           const tagArray = value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
           if (tagArray.length > 10) {
@@ -73,7 +72,6 @@ function CreateThread() {
       [name]: value
     });
 
-    // Real-time validation
     if (touched[name]) {
       const { errors, valid } = validateField(name, value);
       
@@ -111,7 +109,6 @@ function CreateThread() {
     setLoading(true);
     setError('');
 
-    // Validate all fields before submission
     const allErrors = {};
     const allValid = {};
     
@@ -125,7 +122,6 @@ function CreateThread() {
     setValidFields(allValid);
     setTouched({ title: true, description: true, tags: true });
 
-    // Check if there are any errors
     if (Object.keys(allErrors).length > 0) {
       setLoading(false);
       setError('Please fix the errors below before submitting.');
@@ -153,7 +149,6 @@ function CreateThread() {
     }
   };
 
-  // NEW: Check if the form is valid before rendering
   const isFormValid = !fieldErrors.title && !fieldErrors.description && validFields.title && validFields.description;
 
   return (
@@ -247,7 +242,7 @@ function CreateThread() {
               className="btn" 
               loading={loading}
               loadingText="Creating Thread..."
-              disabled={!isFormValid} // <-- NEW: Disable button based on validity
+              disabled={!isFormValid}
             >
               Create Thread
             </ButtonWithLoading>
